@@ -12,7 +12,7 @@ from pprint import pprint
 
 def get_auth_and_scan_codes():
     # username = 'rknupfer'
-    token = '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'
+    token = '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'
     headers = {'authorization': f'Bearer {token}'}
     login = httpx.request(method='GET', url='https://api.github.com/orgs/optilogic/code-scanning/alerts', params={'per_page': 100, 'tool': 'CodeQL', 'state': 'open'}, headers=headers)
     
@@ -80,7 +80,9 @@ def get_codescan_alert_counts():
         except KeyError:
             pass            
 
-    
+        # username = 'rknupfer'
+    # file deepcode ignore HardcodedNonCryptoSecret: <please specify a reason of ignoring this>
+    # token = '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'
 
 
     # Pull repo and no. of alerts and create dictionary repoDict
@@ -109,43 +111,45 @@ def get_codescan_alert_counts():
 
 
 def print_codescan_alert_counts():
-    
-    results = get_codescan_alert_counts()
-    
-    stSeverity:str = "Security severity level count - "
-    stScannerAlerts:str = "Number of alerts per scanner - "
-    stRepoAlerts:str
 
-    for dictionary in results:
-        try:
-            # stKey:str = key
-            # stValue:str = value   
+    pass
+    # results = get_codescan_alert_counts()
     
-            if key = stSeverity:
-                stSeverity += f' {key}:{value} '
-            elif key = stScannerAlerts:
-                stScannerAlerts += f' {key}:{value} '
-            elif stKey.find('repo:') != -1: 
-                stKey = stKey.replace('repo:', '')
+    # stSeverity:str = "Security severity level count - "
+    # stScannerAlerts:str = "Number of alerts per scanner - "
+    # stRepoAlerts:str
+
+    # for dictionary in results:
+    #     try:
+    #         # stKey:str = key
+    #         # stValue:str = value   
+    
+    #         if key = stSeverity:
+    #             stSeverity += f' {key}:{value} '
+    #         elif key = stScannerAlerts:
+    #             stScannerAlerts += f' {key}:{value} '
+    #         elif stKey.find('repo:') != -1: 
+    #             stKey = stKey.replace('repo:', '')
  
                 
                 
                 
                 
-            print(stSeverity)
-            # print(f'Security severity level count - low: {results["low"]}, medium: {results["medium"]}, high: {results["high"]}, critcal: {results["critical"]}') 
-            print(f'Number of Grype alerts: {results["Grype"]}')
-    except KeyError:
-        pass    
+    #         print(stSeverity)
+    #         # print(f'Security severity level count - low: {results["low"]}, medium: {results["medium"]}, high: {results["high"]}, critcal: {results["critical"]}') 
+    #         print(f'Number of Grype alerts: {results["Grype"]}')
+    # except KeyError:
+    #     pass    
         
-    try:
-        print(f'Alerts per repository - {repoDict}')
-    except KeyError:
-        pass    
+    # try:
+    #     print(f'Alerts per repository - {repoDict}')
+    # except KeyError:
+    #     pass    
     
     
 def main():
-    print_codescan_alert_counts()
+    get_codescan_alert_counts()
+    # print_codescan_alert_counts()
     
 if __name__ == '__main__':
     main()
