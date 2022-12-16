@@ -1,11 +1,23 @@
 # Accessing the GitHub REST Api requires installation of PyGithub
+import httpx
+import github
+import pprint
+import json
+from pydantic import BaseModel, Field
+import pandas as pd
+import numpy as np
+import time
 
-import httpx, github, pprint, json
+
+class Tool(BaseModel):
+    """The tool that found the alert"""
+
+    
 
 
 def get_auth_and_scan_codes():
-
-    token = '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'
+    # file deepcode ignore HardcodedNonCryptoSecret: <please specify a reason of ignoring this>
+    token = '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'
     headers = {'authorization': f'Bearer {token}'}
     login = httpx.request(method='GET', url='https://api.github.com/orgs/optilogic/code-scanning/alerts', params={'per_page': 100, 'tool': 'CodeQL', 'state': 'open'}, headers=headers)
     
@@ -18,9 +30,9 @@ def get_codescan_alert_counts():
     results:dict = {}
     results01:dict = {}
     seclevel:str = ''
-    
+   
     scanCodes_json = get_auth_and_scan_codes()
-    
+        
     for dictionary in scanCodes_json:
         try:
             seclevel = dictionary['state']
@@ -76,8 +88,9 @@ def get_codescan_alert_counts():
             seclevel = dictionary1['state']
             if not seclevel in results01.keys():
                 results01 = dict(state=seclevel)
-                # results01 = dictionary1('state':seclevel)
-        
+                # results01['state'] = seclevel
+                #ids_to_return_dict = {'children':[{'id':value}]}
+                
         
                                                 
         except KeyError:
@@ -89,6 +102,7 @@ def get_codescan_alert_counts():
 def print_codescan_alert_counts():
     results, results01 = get_codescan_alert_counts()
     
+    test:str
     repo:str
     count:str
     try:

@@ -154,3 +154,34 @@ def main():
 if __name__ == '__main__':
     main()
 
+
+
+mylist = [
+    {u'id': 5650,
+     u'children': [
+         {u'id': 4635},
+         {u'id': 5648}
+     ]},
+    {u'id': 67,
+     u'children': [
+         {u'id': 77}
+     ]}
+]
+
+
+def extract_id_values(mylist):
+    ids_to_return_dict = {}
+
+    for element in mylist:
+        for key, value in element.items():
+            if 'id' == key:
+                ids_to_return_dict['id'] = value
+            if 'children' == key:
+                for children_elem in value:
+                    if 'id' in children_elem:
+                        ids_to_return_dict['id'] = value
+                        
+    return ids_to_return_dict
+
+
+print(extract_id_values(mylist))
